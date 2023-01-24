@@ -1,6 +1,14 @@
 import * as crypto from "node:crypto";
 import * as fsp from "node:fs/promises";
 
+export class Validator {
+    private readonly salt: string;
+    contructor() {};
+
+    generateSalt() {
+        return crypto.randomBytes(16).toString('hex');
+    }
+}
 const encrypt = (text: string) => {
     crypto
 }
