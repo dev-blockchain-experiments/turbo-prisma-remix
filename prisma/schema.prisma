@@ -1,20 +1,19 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-datasource postgresql {
-  url      = env("DATABASE_URL")
-  provider = "postgresql"
+datasource sqlite {
+  url      = env("SQLITE_DATABASE_URL")
+  provider = "sqlite"
 }
 
 generator client {
   provider        = "prisma-client-js"
-  previewFeatures = ["filterJson"]
 }
 
-enum PostStatus {
-  DRAFT
-  PUBLISHED
-}
+// enum PostStatus {
+//   DRAFT
+//   PUBLISHED
+// }
 
 model User {
   id           Int      @id @default(autoincrement())
@@ -33,11 +32,11 @@ model Post {
   title       String
   slug        String     @default("")
   description String
-  body        Json       @default("{}")
+  // body        Json       @default("{}")
   imageUrl    String?
   readingTime String?
-  tags        Json?
-  published   PostStatus @default(DRAFT)
+  // tags        Json?
+  // published   PostStatus @default(DRAFT)
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
   userId      Int
@@ -50,7 +49,7 @@ model Page {
   id        Int      @id @default(autoincrement())
   title     String
   slug      String   @default("")
-  body      Json     @default("{}")
+  // body      Json     @default("{}")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   userId    Int

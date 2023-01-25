@@ -37,3 +37,6 @@ yarn-error.log*
 
 #UI 
 packages/ui/dist/
+
+#Blockchain
+# packages/blockchain

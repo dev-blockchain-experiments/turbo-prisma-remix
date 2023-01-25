@@ -1,0 +1,148 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// datasource postgresql {
+//   url      = env("DATABASE_URL")
+//   provider = "postgresql"
+// }
+
+//generator client {
+//  provider        = "prisma-client-js"
+//  previewFeatures = ["filterJson"]
+//}
+
+//enum PostStatus {
+//  DRAFT
+//  PUBLISHED
+//}
+
+model User {
+  id           Int      @id @default(autoincrement())
+  username     String   @unique
+  passwordHash String
+  name         String?
+  profileUrl   String?
+  posts        Post[]
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  Page         Page[]
+}
+
+model Post {
+  id          Int        @id @default(autoincrement())
+  title       String
+  slug        String     @default("")
+  description String
+  body        Json       @default("{}")
+  imageUrl    String?
+  readingTime String?
+  tags        Json?
+  published   PostStatus @default(DRAFT)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  userId      Int
+  user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model Page {
+  id        Int      @id @default(autoincrement())
+  title     String
+  slug      String   @default("")
+  body      Json     @default("{}")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Tag {
+  id        Int      @id @default(autoincrement())
+  name      String
+  color     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Message {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String
+  message   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+datasource sqlite {
+  url      = env("SQLITE_DATABASE_URL")
+  provider = "sqlite"
+}
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["filterJson"]
+}
+
+enum PostStatus {
+  DRAFT
+  PUBLISHED
+}
+
+model User {
+  id           Int      @id @default(autoincrement())
+  username     String   @unique
+  passwordHash String
+  name         String?
+  profileUrl   String?
+  posts        Post[]
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  Page         Page[]
+}
+
+model Post {
+  id          Int        @id @default(autoincrement())
+  title       String
+  slug        String     @default("")
+  description String
+  body        Json       @default("{}")
+  imageUrl    String?
+  readingTime String?
+  tags        Json?
+  published   PostStatus @default(DRAFT)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  userId      Int
+  user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model Page {
+  id        Int      @id @default(autoincrement())
+  title     String
+  slug      String   @default("")
+  body      Json     @default("{}")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Tag {
+  id        Int      @id @default(autoincrement())
+  name      String
+  color     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Message {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String
+  message   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
